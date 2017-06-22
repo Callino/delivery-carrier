@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014 Agile Business Group sagl
+#    Copyright (C) 2017 Callino - Wolfgang Pichler
 #    (<http://www.agilebg.com>)
+#    @author Alex Comba <alex.comba@agilebg.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -18,30 +19,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from openerp.osv import orm, fields
-
-
-class delivery_carrier(orm.Model):
-    _inherit = 'delivery.carrier'
-
-    _columns = {
-        'do_not_create_invoice_line': fields.boolean(
-            'Do not create line on invoice'),
-    }
-
-
-class stock_picking(orm.Model):
-    _inherit = "stock.picking"
-
-    def _prepare_shipping_invoice_line(
-        self, cr, uid, picking, invoice, context=None
-    ):
-        res = super(stock_picking, self)._prepare_shipping_invoice_line(
-            cr, uid, picking, invoice, context=context)
-        if (
-            picking.carrier_id
-            and picking.carrier_id.do_not_create_invoice_line
-        ):
-            res = None
-        return res
+{
+    'name': "Delivery Optional Delivery Line",
+    'version': '9.0.0',
+    'category': 'Sales Management',
+    'description': """
+This module does allow you do not automatically add a delivery line on sale orders
+    """,
+    'author': "Callino Software Engineering",
+    'website': 'http://www.callino.at',
+    'license': 'AGPL-3',
+    'depends': [
+        'delivery',
+    ],
+    'data': [
+        'delivery_view.xml',
+    ],
+    'installable': True
+}

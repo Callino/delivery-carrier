@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014 Agile Business Group sagl
-#    (<http://www.agilebg.com>)
-#    @author Alex Comba <alex.comba@agilebg.com>
+#    Copyright (C) 2017 Callino - Wolfgang Pichler
+#    (<http://www.callino.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -19,26 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    'name': "Delivery Optional Invoice Line",
-    'version': '0.1',
-    'category': 'Sales Management',
-    'description': """
-This module allows to remove the default shipping line from the invoices
-created from picking. To do so, the user shall go to the deliver carrier form
-and select the option 'Do not create line on invoice'.
-    """,
-    'author': "Agile Business Group,Odoo Community Association (OCA)",
-    'website': 'http://www.agilebg.com',
-    'license': 'AGPL-3',
-    'depends': [
-        'delivery',
-    ],
-    'data': [
-        'delivery_view.xml',
-    ],
-    'test': [
-        'test/delivery_optional_invoice_line.yml',
-    ],
-    'installable': False
-}
+
+from openerp import models, fields, api, _
+
+
+class DeliveryCarrier(models.Model):
+    _inherit = 'delivery.carrier'
+
+    do_not_create_delivery_line = fields.Boolean('Do not create delivery line')

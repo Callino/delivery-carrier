@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Copyright (C) 2014 Agile Business Group sagl
-#    (<http://www.agilebg.com>)
+#    Copyright (C) 2017 Callino - Wolfgang Pichler
+#    (<http://www.callino.at>)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published
@@ -18,4 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import delivery
+
+from openerp import models, fields, api, _
+
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    def _create_delivery_line(self, carrier, price_unit):
+        if carrier.do_not_create_delivery_line:
+            return
+        return super(SaleOrder, self)._create_delivery_line(carrier, price_unit)

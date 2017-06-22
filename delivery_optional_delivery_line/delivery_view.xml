@@ -7,9 +7,9 @@
             <field name="model">delivery.carrier</field>
             <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
             <field name="arch" type="xml">
-                <xpath expr="/form[@string='Carrier']/group/group/field[@name='active']" position="after">
-                        <field name="do_not_create_invoice_line"/>
-                </xpath>
+                <group name="company" position="inside">
+                    <field name="do_not_create_delivery_line"/>
+                </group>
             </field>
         </record>
 
